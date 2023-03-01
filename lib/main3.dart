@@ -41,12 +41,14 @@ class _MyHomePageState extends State<MyHomePage> {
   final _text2 = TextEditingController();// controller
   bool _validate1 = false;
   bool _validate2= false;//variable to store the bool value
-  final List<String> items = [
-    'อิอิ',
-    'มกราคม 2566',
-    'กุมภาพันธ์ 2566',
-    'มีนาคม 2566',
-  ];
+
+
+
+  // final List<String> items = [
+  //   'มกราคม 2566',
+  //   'กุมภาพันธ์ 2566',
+  //   'มีนาคม 2566',
+  // ];
   String? _chosenValue;
   int index=0;
   String? selectedValue;
@@ -129,6 +131,7 @@ class _MyHomePageState extends State<MyHomePage> {
     for(int i=0;i<count_month;++i) {
       items.add(formattedDateTime(i));
     }
+
     return Scaffold(
       // appBar: AppBar(
       // title: Text('Soybean Forecast'),
@@ -194,6 +197,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                   ),
                 ),
+
                 Padding(
                   padding: const EdgeInsets.only(top: 20.0),
                   child:  Container(
@@ -230,6 +234,9 @@ class _MyHomePageState extends State<MyHomePage> {
                                     height: 70,
                                     width: 150.0,
                                     child: TextField(
+                                      inputFormatters: [
+                                        FilteringTextInputFormatter.allow(RegExp(r'^[+-]?([0-9]+([.][0-9]*)?|[.][0-9]+)')),
+                                      ],
                                       style: GoogleFonts.mitr(
                                         textStyle: TextStyle(
                                             color: Colors.black,
@@ -292,6 +299,9 @@ class _MyHomePageState extends State<MyHomePage> {
                                     height: 70,
                                     width: 150.0,
                                     child: TextField(
+                                      inputFormatters: [
+                                        FilteringTextInputFormatter.allow(RegExp(r'^[+-]?([0-9]+([.][0-9]*)?|[.][0-9]+)')),
+                                      ],
                                       style: GoogleFonts.mitr(
                                         textStyle: TextStyle(
                                             color: Colors.black,
@@ -358,6 +368,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                       //elevation: 5,
                                       style: TextStyle(color: Colors.white),
                                       iconEnabledColor:Colors.black,
+
                                       items: items.map<DropdownMenuItem<String>>((String value) {
                                         return DropdownMenuItem<String>(
                                           value: value,
@@ -367,9 +378,14 @@ class _MyHomePageState extends State<MyHomePage> {
                                                   color: Colors.black,
                                                   fontSize: 15.0),
                                             ),
+
                                           ),
+
+
                                         );
+
                                       }).toList(),
+
                                       hint:Text(
                                         "โปรดเลือกเดือน",
                                         style: GoogleFonts.mitr(
@@ -377,10 +393,13 @@ class _MyHomePageState extends State<MyHomePage> {
                                               color: Colors.blue,
                                               fontSize: 15.0),
                                         ),
-                                      ),
-                                      onChanged: (String? value) {
 
+                                      ),
+
+                                      onChanged: (String? value) {
+                                        final text = value;
                                         final splitted = value?.split(' ');
+                                        print('value $text');
                                         print(splitted![0]);
                                         switch(splitted[0]){
                                           case "มกราคม" : {valueMonth='1'; valueYear=splitted[1];} break;
@@ -397,9 +416,11 @@ class _MyHomePageState extends State<MyHomePage> {
                                           case "ธันวาคม" : {valueMonth='12'; valueYear=splitted[1];} break;
                                         }
                                         print('us $valueUs oil $valueOil month $valueMonth and year $valueYear');
+
                                         setState(() {
                                           _chosenValue = value;
                                         });
+
                                       },
                                     ),
                                   ),
@@ -443,7 +464,6 @@ class _MyHomePageState extends State<MyHomePage> {
                                             setState(() {
                                               QueryText = DecodedData.toString();
 
-                                              print(QueryText + 'kuy wan');
                                             });
                                           }else{
                                             setState(() {
@@ -542,6 +562,7 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
+
 
 
 
